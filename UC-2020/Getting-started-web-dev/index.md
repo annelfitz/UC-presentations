@@ -1,21 +1,23 @@
-<!-- .slide: data-background="../reveal.js/img/2020/uc-tech-session/bg-1.png" -->
+<!-- .slide: data-background="../reveal.js/img/bg-1.png" -->
 <!-- .slide: class="title" -->
-</br></br>
-<h1 style="text-align: left; font-size: 80px;">Getting Started with Web Development and the ArcGIS API for JavaScript</h1>
-<p style="text-align: left; font-size: 30px;">Heather Gonzago and Anne Fitz</p>
-<p style="text-align: left; font-size: 30px;">slides: <a href="http://bit.ly/abc123"><code>https://bit.ly/3cnPptf</code></a></p>
+<br></br>
+### Getting Started with Web Development
+### and the ArcGIS API for JavaScript
+Heather Gonzago and Anne Fitz
+
+<small>👉 Slides & demos: <code>https://bit.ly/3cnPptf</code> 👈</small>
 
 ----
 
 ### **Agenda**
-
-- Setup
-- First steps
-- Working with layers
-- Symbols and renderers
-- Make the map interactive
-- Filtering data
-- Widgets
+</br>
+ - Setup
+ - First steps
+ - Working with layers
+ - Symbols and renderers
+ - Make the map interactive
+ - Filtering data
+ - Widgets
 
 ----
 
@@ -25,7 +27,7 @@
   </br>
   - Concepts remain similar between versions 3.x and 4.x</br>
   </br>
-  - 👉 Slides & demos: <code><a href="https://bit.ly/3cnPptf</code">https://bit.ly/3cnPptf</a></code>  👈
+  - 👉 Slides & demos: <code>https://bit.ly/3cnPptf</code> 👈
 
 ----
 
@@ -340,7 +342,7 @@ Visualize data within Map or Scene
 
 ----
 
-### **View UI**
+### ** View UI**
 
 - Position widgets
   - Add
