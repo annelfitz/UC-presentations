@@ -10,7 +10,10 @@
 ### Agenda
 
 - Adding a FeatureLayer
-- Rendering
+- Visualization
+  - Rendering
+  - Clustering
+  - Highlight features
 - Labeling
 - Querying
 - Editing Features
@@ -55,7 +58,7 @@ layer.definitionExpression = "STATE_NAME = 'California'";
 
 ----
 
-### Rendering
+### Visualization: Rendering
 
 A renderer defines how the FeatureLayer is drawn.
 
@@ -69,7 +72,19 @@ A renderer defines how the FeatureLayer is drawn.
 
 ----
 
-### Rendering demos
+### Visualization: Clustering
+
+<img src="Images/clustering.png" style="float:right; margin: 10px;"></img>
+
+**Clustering:** a method of reducing points by grouping them into clusters based on their spatial proximity to one another.
+
+----
+
+### Visualization: Highlight features
+
+----
+
+### Visualization demos
 
 ----
 
