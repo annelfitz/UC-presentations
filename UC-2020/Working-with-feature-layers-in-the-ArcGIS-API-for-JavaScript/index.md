@@ -7,6 +7,14 @@
 
 ----
 <!-- .slide: data-background="../reveal.js/img/bg-3.png" -->
+</br></br></br>
+
+### First time using the ArcGIS API for JavaScript?
+
+#### Watch [Getting Started with Web Development and the ArcGIS API for JavaScript](https://www.youtube.com/watch?v=zQTkkFUhzLI) to understand the basics, then come back to this presentation!
+
+----
+<!-- .slide: data-background="../reveal.js/img/bg-3.png" -->
 ### Agenda
 
 - Adding a FeatureLayer
@@ -45,7 +53,11 @@ map.add(layer);
 
 ### Adding a FeatureLayer to your map
 
-Demo - I'm thinking we should show the demo of a normal feature layer and then apply a definition expression to show how the featurelayer changes
+<a href="Demos/demo1-intro/add-featurelayer.html" target="_blank"><img src="Images/demo/d1-add-featurelayer.png"></img></a>
+
+----
+
+### Adding a FeatureLayer to your map: definitionExpression
 
 Restrict data retrieved from the feature service
 
@@ -55,6 +67,8 @@ Restrict data retrieved from the feature service
 ```js
 layer.definitionExpression = "STATE_NAME = 'California'";
 ```
+
+<a href="Demos/demo1-intro/add-featurelayer.html" target="_blank"><img src="Images/demo/d1-definition-expression.png"></img></a>
 
 ----
 
@@ -74,9 +88,9 @@ A renderer defines how the FeatureLayer is drawn.
 
 ### Visualization: Clustering
 
-<img src="Images/clustering.png" style="float:right; margin: 10px;"></img>
-
 **Clustering:** a method of reducing points by grouping them into clusters based on their spatial proximity to one another.
+
+<a href="https://developers.arcgis.com/javascript/latest/sample-code/featurereduction-cluster/index.html" target="_blank"><img src="Images/clustering-horizontal.png" style="margin: 10px;"></img></a>
 
 ----
 
@@ -115,3 +129,4 @@ A renderer defines how the FeatureLayer is drawn.
 ### Editing demos
 
 ----
+<!-- .slide: data-background="../reveal.js/img/bg-5.png" -->
