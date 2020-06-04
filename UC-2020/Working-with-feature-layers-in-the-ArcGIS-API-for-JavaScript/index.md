@@ -129,4 +129,13 @@ A renderer defines how the FeatureLayer is drawn.
 ### Editing demos
 
 ----
+
+### 2020 DevSummit Technical Sessions
+
+![DevSummit sessions blog](Images/devsummit-blog.png)
+
+28 videos focused on developing with the JS API!
+<a href="https://esriurl.com/ds2020jsblog"><code>https://esriurl.com/ds2020jsblog<code></a>
+
+----
 <!-- .slide: data-background="../reveal.js/img/bg-5.png" -->
