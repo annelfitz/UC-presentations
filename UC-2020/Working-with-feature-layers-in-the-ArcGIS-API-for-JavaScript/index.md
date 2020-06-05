@@ -102,6 +102,35 @@ layer.definitionExpression = "STATE_NAME = 'California'";
 
 ----
 
+### Visualization: UniqueValueRenderer Demo
+
+<a href="Demos/demo2-visualization/cim-uniquevaluerenderer.html" target="_blank"><img src="Images/demo/d2-cim.png" style="float:left;margin-top:0"></img>
+
+```js
+const streets = new FeatureLayer({
+  portalItem: {
+    id: "fad8da699eb1439ea9e20a8b97cffa7f"
+  },
+  renderer: {
+    type: "unique-value",
+    field: "oneway",
+    defaultSymbol: {
+      type: "simple-line"
+    },
+    uniqueValueInfos: [{
+      value: "yes",
+      symbol: {
+        type: "cim",
+        data: { ... }
+      }
+    }]
+  }
+});
+```
+</a>
+
+----
+
 ### Visualization: Clustering
 
 **Clustering:** a method of reducing points by grouping them into clusters based on their spatial proximity to one another.
