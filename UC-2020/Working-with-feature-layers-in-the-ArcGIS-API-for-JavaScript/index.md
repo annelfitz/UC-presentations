@@ -6,6 +6,21 @@
 <p style="text-align: left; font-size: 30px;">slides: <a href="https://git.io/Jfipd"><code>https://git.io/Jfipd<code></a></p>
 
 ----
+<!-- .slide: data-background="../reveal.js/img/bg-4.png" -->
+### Introductions
+
+<div style="width:48%; float:left;">
+Bjorn Svensson
+
+</div>
+<div style="width:48%; float:right; border-left: 2px solid white; padding: 10px;">
+<img src="Images/intro/anne.png" style="float:left"></img>
+<img src="Images/intro/anne2.png" style="margin-bottom:0px;"></img>
+<img src="Images/intro/anne3.png" style="margin-top:0px;"></img>
+Anne Fitz</br>
+</div>
+
+----
 <!-- .slide: data-background="../reveal.js/img/bg-3.png" -->
 </br></br></br>
 
@@ -22,6 +37,7 @@
 - Adding a FeatureLayer
 - Visualization
   - Rendering
+  - Layer blending
   - Clustering
   - Highlight features
   - Filtering
@@ -104,6 +120,8 @@ layer.definitionExpression = "STATE_NAME = 'California'";
 
 ### Visualization: UniqueValueRenderer Demo
 
+Visualize one-way streets with [CIMSymbols](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-CIMSymbol.html)
+
 <a href="Demos/demo2-visualization/cim-uniquevaluerenderer.html" target="_blank"><img src="Images/demo/d2-cim.png" style="float:left;margin-top:0"></img>
 
 ```js
@@ -119,7 +137,7 @@ const streets = new FeatureLayer({
     },
     uniqueValueInfos: [{
       value: "yes",
-      symbol: {
+      symbol: { // CIMSymbol
         type: "cim",
         data: { ... }
       }
@@ -128,6 +146,14 @@ const streets = new FeatureLayer({
 });
 ```
 </a>
+
+----
+
+### Visualization: Layer blending
+
+`featureLayer.blendMode`: a method of blending layers together to create interesting effects or produce a seemingly new layer
+
+![blendMode](Images/layer-blendmode.png)
 
 ----
 
@@ -140,30 +166,34 @@ const streets = new FeatureLayer({
 ----
 
 ### Visualization: Highlight
+<img src="Images/highlight.png" style="float:right"></img>
 
-- Highlight features on the LayerView
-- Maintain a handle to the current highlight
-- Highlight options: color, opacity, halo
+<div style="width: 50%;">
+  <ul>
+    <li>Highlight features on the LayerView</li>
+    <li>Maintain a handle to the current highlight</li>
+    <li>Highlight options: color, opacity, halo</li>
+  </ul>
+</div>
+</br>
 
-```js
+ ```js
 if (highlight){
   highlight.remove();
 }
 highlight = layerView.highlight(result.features);
 ```
 
+
 ----
 
 ### Visualization: Filtering
 
 - Define the filter criteria
-- Emphasize and/or deemphasize features
 - Define the style for filtered features
 - Apply the filter to the LayerView
 
-----
-
-### Visualization demos
+<a href="Demos/demo2-visualization/filter.html" target="_blank"><img src="Images/demo/d2-filtering.png"></img></a>
 
 ----
 
