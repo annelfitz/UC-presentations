@@ -85,7 +85,7 @@ map.add(layer);
 
 ### Adding a FeatureLayer to your map
 
-<a href="Demos/demo1-intro/add-featurelayer.html" target="_blank"><img src="Images/demo/d1-add-featurelayer.png"></img></a>
+<a href="Demos/part1-intro/add-featurelayer.html" target="_blank"><img src="Images/demo/d1-add-featurelayer.png"></img></a>
 
 ----
 
@@ -100,7 +100,7 @@ Restrict data retrieved from the feature service
 layer.definitionExpression = "STATE_NAME = 'California'";
 ```
 
-<a href="Demos/demo1-intro/add-featurelayer.html" target="_blank"><img src="Images/demo/d1-definition-expression.png"></img></a>
+<a href="Demos/part1-intro/add-featurelayer.html" target="_blank"><img src="Images/demo/d1-definition-expression.png"></img></a>
 
 ----
 
@@ -118,11 +118,37 @@ layer.definitionExpression = "STATE_NAME = 'California'";
 
 ----
 
+### Visualization: SimpleRenderer Demo
+
+Visualize streets with [SimpleLineSymbol](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-SimpleLineSymbol.html)
+
+<a href="Demos/part2-visualization/simplerenderer.html" target="_blank"><img src="Images/demo/d2-simplerenderer.png" style="float:left;margin-top:0"></img>
+
+```js
+const streets = new FeatureLayer({
+  portalItem: {
+    id: "fad8da699eb1439ea9e20a8b97cffa7f"
+  },
+  renderer: {
+    type: "simple",
+    symbol: {
+      // autocasts as SimpleLineSymbol
+      type: "simple-line",
+      size: 1,
+      color: "black"
+    }
+  }
+});
+```
+</a>
+
+----
+
 ### Visualization: UniqueValueRenderer Demo
 
 Visualize one-way streets with [CIMSymbols](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-CIMSymbol.html)
 
-<a href="Demos/demo2-visualization/cim-uniquevaluerenderer.html" target="_blank"><img src="Images/demo/d2-cim.png" style="float:left;margin-top:0"></img>
+<a href="Demos/part2-visualization/cim-uniquevaluerenderer.html" target="_blank"><img src="Images/demo/d2-cim.png" style="float:left;margin-top:0"></img>
 
 ```js
 const streets = new FeatureLayer({
@@ -149,11 +175,36 @@ const streets = new FeatureLayer({
 
 ----
 
+### Visualization: Visual Variables
+
+<div style="width:35%; float:left">
+**[Visual variables](https://developers.arcgis.com/javascript/latest/api-reference/esri-renderers-SimpleRenderer.html#visualVariables)**: used to create data-driven thematic visualizations
+<ul>
+ <li>size</li>
+ <li>color</li>
+ <li>opacity</li>
+ <li>rotation</li>
+</ul>
+</div>
+<div style="width:65%; float:right;">
+<a href="Demos/part2-visualization/visualvariables.html" target="_blank"><img src="Images/demo/d2-vvs.png"></img></a>
+</div>
+
+----
+
+### Visualization: Smart Mapping
+
+[Smart Mapping APIs](https://developers.arcgis.com/javascript/latest/guide/visualization-overview/#smart-mapping-apis): generate renderers with "smart" default symbols based on the summary statistics of the dataset and the basemap
+
+<a href="https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=visualization-sm-classbreaks" target="_blank"><img src="Images/smartmapping.png"></img></a>
+
+----
+
 ### Visualization: Layer blending
 
 `featureLayer.blendMode`: a method of blending layers together to create interesting effects or produce a seemingly new layer
 
-![blendMode](Images/layer-blendmode.png)
+<a href="Demos/part2-visualization/layerblend.html" target="_blank"><img src="Images/layer-blendmode.png"></img></a>
 
 ----
 
@@ -166,7 +217,7 @@ const streets = new FeatureLayer({
 ----
 
 ### Visualization: Highlight
-<img src="Images/highlight.png" style="float:right"></img>
+<a href="https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=highlight-scenelayer" target="_blank"><img src="Images/highlight.png" style="float:right"></img></a>
 
 <div style="width: 50%;">
   <ul>
@@ -193,7 +244,7 @@ highlight = layerView.highlight(result.features);
 - Define the style for filtered features
 - Apply the filter to the LayerView
 
-<a href="Demos/demo2-visualization/filter.html" target="_blank"><img src="Images/demo/d2-filtering.png"></img></a>
+<a href="Demos/part2-visualization/filter.html" target="_blank"><img src="Images/demo/d2-filtering.png"></img></a>
 
 ----
 
@@ -222,12 +273,12 @@ Label features to show relevant information at a glance.
 
 Bring features from your data into the web browser.
 
-<img src="Images/query.png" style="float:left; margin-right: 20px;"></img>
+<a href="Demos/part4-querying/serverside.html" target="_blank"><img src="Images/query.png" style="float:left; margin-right: 20px;"></img></a>
 
 [Query features](https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=featurelayer-query-basic)
 
 ```js
-layer.queryFeatures({
+featureLayer.queryFeatures({
     geometry: point
 }).then(function(featureSet){
     // do something with the results
@@ -251,15 +302,20 @@ featureLayer.queryRelatedFeatures()
 ### Client-side querying
 
 Query data already in the web browser.
+`featureLayerView.queryFeatures()`
 
 - Really fast
 - Avoids round-trips to the server
 - Only works with available features
 - Make sure you have all the attributes you need
 
+<a href="Demos/part4-querying/clientside-hover.html" target="_blank">Demo</a>
+
 ----
 
-### Querying demos
+### Querying statistics
+
+<a href="https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=featurelayerview-query-geometry" target="_blank"><img src="Images/demo/d4-query-stats.png"></img></a>
 
 ----
 
