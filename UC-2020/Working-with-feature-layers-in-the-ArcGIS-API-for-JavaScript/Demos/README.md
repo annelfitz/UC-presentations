@@ -10,4 +10,4 @@
   
 ## Querying
   - [Server-side](https://annelfitz.github.io/UC-presentations/UC-2020/Getting-started-web-dev/Demos/part4-querying/serverside.html)
-  - [Client-side)(https://annelfitz.github.io/UC-presentations/UC-2020/Getting-started-web-dev/Demos/part4-querying/clientside-hover.html)
+  - [Client-side](https://annelfitz.github.io/UC-presentations/UC-2020/Getting-started-web-dev/Demos/part4-querying/clientside-hover.html)
