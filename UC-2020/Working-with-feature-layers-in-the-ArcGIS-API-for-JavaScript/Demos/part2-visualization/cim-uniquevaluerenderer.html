@@ -42,79 +42,82 @@
                         symbol: {
                             type: "cim",
                             data: {
-                                type: "CIMLineSymbol",
-                                symbolLayers: [{
-                                        type: "CIMSolidStroke",
-                                        enable: "true",
-                                        capStyle: "Butt",
-                                        joinStyle: "Round",
-                                        width: 1,
-                                        color: [
-                                            0,
-                                            0,
-                                            0,
-                                            255
-                                        ]
-                                    },
-                                    {
-                                        type: "CIMVectorMarker",
-                                        enable: true,
-                                        size: 5,
-                                        markerPlacement: {
-                                            type: "CIMMarkerPlacementAlongLineSameSize",
-                                            angleToLine: true,
-                                            endings: "WithMarkers",
-                                            offsetAlongLine: 50,
-                                            placementTemplate: [
-                                                19.5
+                                type: "CIMSymbolReference",
+                                symbol: {
+                                    type: "CIMLineSymbol",
+                                    symbolLayers: [{
+                                            type: "CIMSolidStroke",
+                                            enable: "true",
+                                            capStyle: "Butt",
+                                            joinStyle: "Round",
+                                            width: 1,
+                                            color: [
+                                                0,
+                                                0,
+                                                0,
+                                                255
                                             ]
                                         },
-                                        frame: {
-                                            xmin: -5,
-                                            ymin: -5,
-                                            xmax: 5,
-                                            ymax: 5
-                                        },
-                                        markerGraphics: [{
-                                            type: "CIMMarkerGraphic",
-                                            geometry: {
-                                                rings: [
-                                                    [
-                                                        [
-                                                            -8,
-                                                            -5.47
-                                                        ],
-                                                        [
-                                                            -8,
-                                                            5.6
-                                                        ],
-                                                        [
-                                                            1.96,
-                                                            -0.03
-                                                        ],
-                                                        [
-                                                            -8,
-                                                            -5.47
-                                                        ]
-                                                    ]
+                                        {
+                                            type: "CIMVectorMarker",
+                                            enable: true,
+                                            size: 5,
+                                            markerPlacement: {
+                                                type: "CIMMarkerPlacementAlongLineSameSize",
+                                                angleToLine: true,
+                                                endings: "WithMarkers",
+                                                offsetAlongLine: 50,
+                                                placementTemplate: [
+                                                    19.5
                                                 ]
                                             },
-                                            symbol: {
-                                                type: "CIMPolygonSymbol",
-                                                symbolLayers: [{
-                                                    type: "CIMSolidFill",
-                                                    enable: true,
-                                                    color: [
-                                                        0,
-                                                        0,
-                                                        0,
-                                                        255
+                                            frame: {
+                                                xmin: -5,
+                                                ymin: -5,
+                                                xmax: 5,
+                                                ymax: 5
+                                            },
+                                            markerGraphics: [{
+                                                type: "CIMMarkerGraphic",
+                                                geometry: {
+                                                    rings: [
+                                                        [
+                                                            [
+                                                                -8,
+                                                                -5.47
+                                                            ],
+                                                            [
+                                                                -8,
+                                                                5.6
+                                                            ],
+                                                            [
+                                                                1.96,
+                                                                -0.03
+                                                            ],
+                                                            [
+                                                                -8,
+                                                                -5.47
+                                                            ]
+                                                        ]
                                                     ]
-                                                }]
-                                            }
-                                        }]
-                                    }
-                                ]
+                                                },
+                                                symbol: {
+                                                    type: "CIMPolygonSymbol",
+                                                    symbolLayers: [{
+                                                        type: "CIMSolidFill",
+                                                        enable: true,
+                                                        color: [
+                                                            0,
+                                                            0,
+                                                            0,
+                                                            255
+                                                        ]
+                                                    }]
+                                                }
+                                            }]
+                                        }
+                                    ]
+                                }
                             }
                         }
                     }]
