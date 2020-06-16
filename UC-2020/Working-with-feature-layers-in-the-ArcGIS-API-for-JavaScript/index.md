@@ -35,7 +35,7 @@ Anne Fitz
 <!-- .slide: data-background="../reveal.js/img/bg-3.png" -->
 ### Agenda
 
-- Adding a FeatureLayer
+- FeatureLayer: what, why, how
 - Visualization
   - Rendering
   - Layer blending
@@ -48,14 +48,24 @@ Anne Fitz
 
 ----
 
+### What is the FeatureLayer?
+
+* More than 20+ different [layers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html)
+* Different ways to categorize:
+  * Layers for query, visualize, analyze VERSUS providing geographic context
+  * Layers using server-side rendering VERSUS clientside rendering
+  * Service-based vs file-based
+  * By service type: MapServer, ImageServer, FeatureServer, StreamServer
+
+----
+
 ### What's so special about FeatureLayers?
 
-![FeatureLayer](Images/featurelayer.png)
+[![FeatureLayer](Images/featurelayer.png)
+](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html)
 
 - Works with your data as features
-- Can be rendered in 2D or 3D
 - Can be used for editing
-- Updates to data are automatically available to client
 - Allows for dynamic styling and interactive workflows
 - Support for client-side filtering, querying, and statistics
 
@@ -252,6 +262,11 @@ highlight = layerView.highlight(result.features);
 ### Labeling
 
 Label features to show relevant information at a glance.
+
+[Guide topic](https://developers.arcgis.com/javascript/latest/guide/labeling/index.html)
+
+* featureLayer.labelInfo
+* or PortalItem with labels defined
 
 ----
 
