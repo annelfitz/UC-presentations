@@ -9,15 +9,16 @@
 <!-- .slide: data-background="../reveal.js/img/bg-4.png" -->
 ### Introductions
 
-<div style="width:48%; float:left;">
+<div style="width:48%; float:left; padding: 10px;">
+<img src="Images/intro/bjorn2.png" style="width:38%"></img>
+<img src="Images/intro/Bjorn_Svensson1.jpg" style="width:58%"></img>
 Bjorn Svensson
-
 </div>
 <div style="width:48%; float:right; border-left: 2px solid white; padding: 10px;">
 <img src="Images/intro/anne.png" style="float:left"></img>
 <img src="Images/intro/anne2.png" style="margin-bottom:0px;"></img>
 <img src="Images/intro/anne3.png" style="margin-top:0px;"></img>
-Anne Fitz</br>
+Anne Fitz
 </div>
 
 ----
