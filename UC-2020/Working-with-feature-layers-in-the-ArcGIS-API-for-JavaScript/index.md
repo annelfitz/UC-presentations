@@ -3,7 +3,7 @@
 </br></br>
 <h1 style="text-align: left; font-size: 80px;">Working with FeatureLayers in the ArcGIS API for JavaScript</h1>
 <p style="text-align: left; font-size: 30px;">Bjorn Svensson and Anne Fitz</p>
-<p style="text-align: left; font-size: 30px;">slides: <a href="https://git.io/Jfipd"><code>https://git.io/Jfipd<code></a></p>
+<p style="text-align: left; font-size: 30px;">slides: <a href="https://arcg.is/WGXqn"><code>https://arcg.is/WGXqn<code></a></p>
 
 ----
 <!-- .slide: data-background="../reveal.js/img/bg-4.png" -->
@@ -29,7 +29,7 @@ Anne Fitz
 
 #### Watch [Getting Started with Web Development and the ArcGIS API for JavaScript](https://www.youtube.com/watch?v=zQTkkFUhzLI) to understand the basics, then come back to this presentation!
 
-<< add shortened link here >>
+[https://arcg.is/0vrHnv](https://arcg.is/0vrHnv)
 
 ----
 <!-- .slide: data-background="../reveal.js/img/bg-3.png" -->
