@@ -51,15 +51,15 @@ Anne Fitz
 ### What is the FeatureLayer?
 
 * More than 20+ different [layers](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-Layer.html)
-* Different ways to categorize:
-  * Layers for query, visualize, analyze VERSUS providing geographic context
-  * Layers using server-side rendering VERSUS clientside rendering
-  * Service-based vs file-based
-  * By service type: MapServer, ImageServer, FeatureServer, StreamServer
+* FeatureLayer:
+  * for query, visualize, analyze
+  * clientside rendering
+  * Service-based and file-based
+  <!--* By service type: MapServer, ImageServer, FeatureServer, StreamServer-->
 
 ----
 
-### What's so special about FeatureLayers?
+### What's so special about FeatureLayer?
 
 [![FeatureLayer](Images/featurelayer.png)
 ](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html)
@@ -81,12 +81,12 @@ Anne Fitz
 
 ```js
 const layer = new FeatureLayer({
-  url: "https://<url to my server>/FeatureServer",
+  url: "https://<url to my server>/FeatureServer/0",
   // portalItem: {
   //    id: "item id from portal"
   // },
-  renderer: { ... },
-  popupTemplate: { ... },
+  //renderer: { ... },
+  //popupTemplate: { ... },
 });
 
 map.add(layer);
@@ -96,22 +96,22 @@ map.add(layer);
 
 ### Adding a FeatureLayer to your map
 
-<a href="Demos/part1-intro/add-featurelayer.html" target="_blank"><img src="Images/demo/d1-add-featurelayer.png"></img></a>
+<p style="font-size:smaller;color:gray;font-style:italic">Unemployment in the United States by postal codes</p>
+
+<iframe width="1200" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+    src="Demos/part1-intro/add-featurelayer.html"/>
 
 ----
 
 ### Adding a FeatureLayer to your map: definitionExpression
 
-Restrict data retrieved from the feature service
-
-- to work with a subset of features
-- to remove features with null attributes.
+Limit the data retrieved from the feature service
 
 ```js
-layer.definitionExpression = "STATE_NAME = 'California'";
+layer.definitionExpression = "STATE_NAME='California'";
 ```
 
-<a href="Demos/part1-intro/add-featurelayer.html" target="_blank"><img src="Images/demo/d1-definition-expression.png"></img></a>
+<a href="Demos/part1-intro/add-featurelayer-california.html" target="_blank"><img src="Images/demo/d1-definition-expression.png"></img></a>
 
 ----
 
