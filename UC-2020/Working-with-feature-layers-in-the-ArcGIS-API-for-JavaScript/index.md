@@ -55,12 +55,12 @@ Anne Fitz
 * FeatureLayer:
   * for query, visualize, analyze
   * clientside rendering
-  * Service-based and file-based
+  * service-based and file-based
   <!--* By service type: MapServer, ImageServer, FeatureServer, StreamServer-->
 
 ----
 
-### What's so special about FeatureLayer?
+### FeatureLayer is awesome
 
 [![FeatureLayer](Images/featurelayer.png)
 ](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html)
@@ -69,6 +69,7 @@ Anne Fitz
 - Can be used for editing
 - Allows for dynamic styling and interactive workflows
 - Support for client-side filtering, querying, and statistics
+- Great performance
 
 ----
 
@@ -77,20 +78,20 @@ Anne Fitz
 **Sources**
 
 - Feature services or map services
-- Feature collections
 - Portal item (from ArcGIS Online or Enterprise)
+- Feature collections
+
 
 ```js
-const layer = new FeatureLayer({
-  url: "https://<url to my server>/FeatureServer/0",
-  // portalItem: {
-  //    id: "item id from portal"
-  // },
-  //renderer: { ... },
-  //popupTemplate: { ... },
-});
+  const layer = new FeatureLayer({
+    // specify "url" or "portalItem" or "source" property
+    url: "https://<url to my server>/FeatureServer/0"
+    // portalItem: {
+    //    id: "item id from portal"
+    // }
+  });
 
-map.add(layer);
+  map.add(layer);
 ```
 
 ----
