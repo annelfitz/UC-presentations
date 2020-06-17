@@ -385,4 +385,15 @@ How do I know if I can edit features?
 <a href="https://esriurl.com/ds2020jsblog"><code>https://esriurl.com/ds2020jsblog<code></a>
 
 ----
+
+### [developers.arcgis.com/javascript](https://developers.arcgis.com/javascript)
+
+<br>
+<br>
+
+Slides & demos available at
+
+https://arcg.is/WGXqn
+
+----
 <!-- .slide: data-background="../reveal.js/img/bg-5.png" -->
