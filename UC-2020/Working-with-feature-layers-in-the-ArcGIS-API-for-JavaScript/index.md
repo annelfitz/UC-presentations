@@ -261,12 +261,24 @@ highlight = layerView.highlight(result.features);
 
 ### Labeling
 
-Label features to show relevant information at a glance.
+<!--Label features to show relevant information at a glance.-->
 
-[Guide topic](https://developers.arcgis.com/javascript/latest/guide/labeling/index.html)
+<!--[Guide topic](https://developers.arcgis.com/javascript/latest/guide/labeling/index.html)-->
 
-* featureLayer.labelInfo
-* or PortalItem with labels defined
+* FeatureLayer has [labelingInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#labelingInfo) and [labelsVisible](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#labelsVisible) properties
+  * labelingInfo is an array of [LabelClass](https://https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LabelClass.html)
+    * with labelExpressionInfo, labelPlacement, and symbol properties
+    * where symbol is [TextSymbol](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-TextSymbol.html) or [LabelSymbol3D](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-LabelSymbol3D.html)
+
+* or a PortalItem with labels defined
+
+<!--
+  Click above API Reference, then on to samples.
+  The labelingInfo property is specified as an array of LabelClass objects, which contains the labelExpressionInfo, labelPlacement, and TextSymbol.
+  The TextSymbol class supports altering the color, font, halo, and other properties of the label graphic. Labeling is supported for Points, Polylines, and Polygons.
+
+  font set
+-->
 
 ----
 
