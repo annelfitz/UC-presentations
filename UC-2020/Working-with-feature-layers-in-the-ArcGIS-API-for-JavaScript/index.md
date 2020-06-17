@@ -40,10 +40,11 @@ Anne Fitz
   - Rendering
   - Layer blending
   - Clustering
-  - Highlight features
-  - Filtering
 - Labeling
-- Querying
+- Layer vs. LayerView
+  - Querying
+  - Filtering
+  - Highlighting
 - Editing Features
 
 ----
@@ -115,7 +116,7 @@ layer.definitionExpression = "STATE_NAME='California'";
 
 ----
 
-<h3 style="margin-top:-35px"> Visualization: Rendering</h3>
+<h3 style="margin-top:-35px"> <a href="https://developers.arcgis.com/javascript/latest/guide/visualization-overview/" target="_blank">Visualization:</a> Rendering</h3>
 
 <p style="margin:0">A renderer defines how the FeatureLayer is drawn.</p>
 
@@ -227,38 +228,6 @@ const streets = new FeatureLayer({
 
 ----
 
-### Visualization: Highlight
-<a href="https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=highlight-scenelayer" target="_blank"><img src="Images/highlight.png" style="float:right"></img></a>
-
-<div style="width: 50%;">
-  <ul>
-    <li>Highlight features on the LayerView</li>
-    <li>Maintain a handle to the current highlight</li>
-    <li>Highlight options: color, opacity, halo</li>
-  </ul>
-</div>
-</br>
-
- ```js
-if (highlight){
-  highlight.remove();
-}
-highlight = layerView.highlight(result.features);
-```
-
-
-----
-
-### Visualization: Filtering
-
-- Define the filter criteria
-- Define the style for filtered features
-- Apply the filter to the LayerView
-
-<a href="Demos/part2-visualization/filter.html" target="_blank"><img src="Images/demo/d2-filtering.png"></img></a>
-
-----
-
 ### Labeling
 
 <!--Label features to show relevant information at a glance.-->
@@ -283,6 +252,17 @@ highlight = layerView.highlight(result.features);
 ----
 
 ### Labeling demos
+
+----
+
+### Layer vs. LayerView
+
+- **LayerView**
+  - Created when a layer is added to a MapView or SceneView
+  - Responsible for rendering features in the view
+  - Allows query, filter, and highlighting on the client-side
+
+![layerVsLayerView](Images/layerview.png)
 
 ----
 
@@ -337,13 +317,40 @@ Query data already in the web browser.
 - Only works with available features
 - Make sure you have all the attributes you need
 
-<a href="Demos/part4-querying/clientside-hover.html" target="_blank">Demo</a>
+<a href="Demos/part4-querying/clientside.html" target="_blank">Demo</a></br>
+<a href="Demos/part4-querying/clientside-hover.html" target="_blank">Demo - hover</a>
 
 ----
 
-### Querying statistics
+### Highlight
+<a href="https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=highlight-scenelayer" target="_blank"><img src="Images/highlight.png" style="float:right"></img></a>
 
-<a href="https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=featurelayerview-query-geometry" target="_blank"><img src="Images/demo/d4-query-stats.png"></img></a>
+<div style="width: 50%;">
+  <ul>
+    <li>Highlight features on the LayerView</li>
+    <li>Maintain a handle to the current highlight</li>
+    <li>Highlight options: color, opacity, halo</li>
+  </ul>
+</div>
+</br>
+
+ ```js
+if (highlight){
+  highlight.remove();
+}
+highlight = layerView.highlight(result.features);
+```
+
+----
+
+### Filtering
+
+- Define the filter criteria
+- Define the style for filtered features
+- Apply the filter to the LayerView
+- For server-side filtering, use `definitionExpression`
+
+<a href="Demos/part4-querying/filter.html" target="_blank"><img src="Images/demo/d4-filtering.png"></img></a>
 
 ----
 
