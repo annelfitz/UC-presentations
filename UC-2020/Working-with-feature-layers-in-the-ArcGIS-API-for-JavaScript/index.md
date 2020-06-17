@@ -356,24 +356,28 @@ highlight = layerView.highlight(result.features);
 
 Updating features directly from the web browser.
 
-How do I know if I can edit features?
-
-- Rest supported operations
-- ArcGIS Online/Portal settings
-- ArcGIS Server manager
-- FeatureLayer.capabilities
+- [Editor widget](https://developers.arcgis.com/javascript/latest/sample-code/widgets-editor-3d/live/index.html)
+- FeatureTable widget
+- FeatureLayer.applyEdits()
 
 ----
 
 ### Editing
 
-- FeatureLayer.applyEdits()
-- Editor widget
-- FeatureTable widget
+How do I know if I can edit features?
+
+- REST supported operations
+- Portal item settings
+- ArcGIS Server manager
+- FeatureLayer.capabilities
 
 ----
 
-### Editing demos
+### More about Editing
+
+_ArcGIS API for JavaScript: Web Editing in 2D and 3D_
+
+https://www.youtube.com/watch?v=m0m7F8FuAlc
 
 ----
 
