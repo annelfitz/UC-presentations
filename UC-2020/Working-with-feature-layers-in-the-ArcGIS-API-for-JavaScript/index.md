@@ -55,12 +55,12 @@ Anne Fitz
 * FeatureLayer:
   * for query, visualize, analyze
   * clientside rendering
-  * Service-based and file-based
+  * service-based and file-based
   <!--* By service type: MapServer, ImageServer, FeatureServer, StreamServer-->
 
 ----
 
-### What's so special about FeatureLayer?
+### FeatureLayer is awesome
 
 [![FeatureLayer](Images/featurelayer.png)
 ](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html)
@@ -69,6 +69,7 @@ Anne Fitz
 - Can be used for editing
 - Allows for dynamic styling and interactive workflows
 - Support for client-side filtering, querying, and statistics
+- Great performance
 
 ----
 
@@ -77,20 +78,20 @@ Anne Fitz
 **Sources**
 
 - Feature services or map services
-- Feature collections
 - Portal item (from ArcGIS Online or Enterprise)
+- Feature collections
+
 
 ```js
-const layer = new FeatureLayer({
-  url: "https://<url to my server>/FeatureServer/0",
-  // portalItem: {
-  //    id: "item id from portal"
-  // },
-  //renderer: { ... },
-  //popupTemplate: { ... },
-});
+  const layer = new FeatureLayer({
+    // specify "url" or "portalItem" or "source" property
+    url: "https://<url to my server>/FeatureServer/0"
+    // portalItem: {
+    //    id: "item id from portal"
+    // }
+  });
 
-map.add(layer);
+  map.add(layer);
 ```
 
 ----
@@ -235,9 +236,12 @@ const streets = new FeatureLayer({
 <!--[Guide topic](https://developers.arcgis.com/javascript/latest/guide/labeling/index.html)-->
 
 * FeatureLayer has [labelingInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#labelingInfo) and [labelsVisible](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html#labelsVisible) properties
-  * labelingInfo is an array of [LabelClass](https://https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LabelClass.html)
-    * with labelExpressionInfo, labelPlacement, and symbol properties
-    * where symbol is [TextSymbol](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-TextSymbol.html) or [LabelSymbol3D](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-LabelSymbol3D.html)
+  * labelingInfo is an array of [LabelClass](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LabelClass.html) with
+    * [labelExpressionInfo](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LabelClass.html#labelExpressionInfo) - an Arcade expression,
+    * [labelPlacement](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LabelClass.html#labelPlacement),
+    * [symbol](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LabelClass.html#symbol) - which is a [TextSymbol](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-TextSymbol.html) or [LabelSymbol3D](https://developers.arcgis.com/javascript/latest/api-reference/esri-symbols-LabelSymbol3D.html)
+    * [minScale](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LabelClass.html#minScale) & [maxscale](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LabelClass.html#maxScale)
+    * and [where](https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-support-LabelClass.html#where) - a SQL expression
 
 * or a PortalItem with labels defined
 
@@ -245,13 +249,7 @@ const streets = new FeatureLayer({
   Click above API Reference, then on to samples.
   The labelingInfo property is specified as an array of LabelClass objects, which contains the labelExpressionInfo, labelPlacement, and TextSymbol.
   The TextSymbol class supports altering the color, font, halo, and other properties of the label graphic. Labeling is supported for Points, Polylines, and Polygons.
-
-  font set
 -->
-
-----
-
-### Labeling demos
 
 ----
 
@@ -358,24 +356,28 @@ highlight = layerView.highlight(result.features);
 
 Updating features directly from the web browser.
 
-How do I know if I can edit features?
-
-- Rest supported operations
-- ArcGIS Online/Portal settings
-- ArcGIS Server manager
-- FeatureLayer.capabilities
+- [Editor widget](https://developers.arcgis.com/javascript/latest/sample-code/widgets-editor-3d/live/index.html)
+- FeatureTable widget
+- FeatureLayer.applyEdits()
 
 ----
 
 ### Editing
 
-- FeatureLayer.applyEdits()
-- Editor widget
-- FeatureTable widget
+How do I know if I can edit features?
+
+- REST supported operations
+- Portal item settings
+- ArcGIS Server manager
+- FeatureLayer.capabilities
 
 ----
 
-### Editing demos
+### More about Editing
+
+_ArcGIS API for JavaScript: Web Editing in 2D and 3D_
+
+https://www.youtube.com/watch?v=m0m7F8FuAlc
 
 ----
 
@@ -385,6 +387,17 @@ How do I know if I can edit features?
 
 28 videos focused on developing with the JS API!
 <a href="https://esriurl.com/ds2020jsblog"><code>https://esriurl.com/ds2020jsblog<code></a>
+
+----
+
+### [developers.arcgis.com/javascript](https://developers.arcgis.com/javascript)
+
+<br>
+<br>
+
+Slides & demos available at
+
+https://arcg.is/WGXqn
 
 ----
 <!-- .slide: data-background="../reveal.js/img/bg-5.png" -->
