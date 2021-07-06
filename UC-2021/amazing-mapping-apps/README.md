@@ -15,7 +15,7 @@ The ArcGIS API for JavaScript lets you build powerful, interactive mapping appli
 
 ## Slides
 
-- [Presentation - Download the slides](https://raw.githubusercontent.com/annelfitz/UC-presentations/main/UC-2021/amazing-mapping-apps/slides.pptx)
+- [Presentation - Download the slides](https://github.com/annelfitz/UC-presentations/raw/master/UC-2021/amazing-mapping-apps/slides.pdf)
 
 ## Demos
 
