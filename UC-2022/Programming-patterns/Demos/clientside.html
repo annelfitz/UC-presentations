@@ -1,0 +1,317 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>Client-side Querying</title>
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.24/esri/themes/light/main.css" />
+  <script src="https://js.arcgis.com/4.24/"></script>
+
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/layers/FeatureLayer",
+      "esri/widgets/Legend",
+      "esri/Graphic"
+    ], function (Map, MapView, FeatureLayer, Legend, Graphic) {
+      let layerView;
+      const category = document.getElementById("category").text;
+      const map = new Map({
+        basemap: "gray-vector"
+      });
+
+      const view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [-118.44, 34.01],
+        zoom: 12,
+        constraints: {
+          minScale: 2311104
+        },
+        popup: {
+          autoOpenEnabled: false,
+          dockEnabled: true,
+          dockOptions: {
+            // dock popup at bottom-right side of view
+            buttonEnabled: false,
+            breakpoint: false,
+            position: "bottom-right"
+          }
+        }
+      });
+
+      const symbolCats = [
+        "post-office",
+        "atm",
+        "place-of-worship",
+        "park",
+        "school",
+        "hospital",
+        "fire-station",
+        "playground",
+        "shopping-center",
+        "campground",
+        "golf-course",
+        "library",
+        "city-hall",
+        "beach",
+        "police-station",
+        "subway-station",
+        "train-station",
+        "cemetery",
+        "trail",
+        "radio-tower",
+        "museum",
+        "airport",
+        "live-music-venue",
+        "sports-complex",
+        "ferry"
+      ];
+
+      rendererInfos = symbolCats.map((symCat) => {
+        return {
+          value: symCat,
+          symbol: {
+            type: "web-style",
+            name: symCat,
+            styleName: "Esri2DPointSymbolsStyle"
+          },
+          label: symCat
+        };
+      });
+
+      const scale = 36112;
+
+      const renderer = {
+        type: "unique-value", // autocasts as new UniqueValueRenderer()
+        valueExpression: category,
+        valueExpressionTitle: "Symbol Categories",
+        uniqueValueInfos: rendererInfos,
+        visualVariables: [{
+          type: "size",
+          valueExpression: "$view.scale",
+          stops: [{
+              value: scale,
+              size: 20
+            },
+            {
+              value: scale * 2,
+              size: 15
+            },
+            {
+              value: scale * 4,
+              size: 10
+            },
+            {
+              value: scale * 8,
+              size: 5
+            },
+            {
+              value: scale * 16,
+              size: 2
+            },
+            {
+              value: scale * 32,
+              size: 1
+            }
+          ]
+        }]
+      };
+
+      const featureLayer = new FeatureLayer({
+        url: "http://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/LA_County_Points_of_Interest/FeatureServer/0",
+        renderer: renderer,
+        outFields: ["Name", "cat1", "cat2", "addrln1", "phones","link"],
+        popupTemplate: {
+          title: "{Name}",
+          content: [{
+            type: "fields",
+            fieldInfos: [{
+                fieldName: "cat2",
+                label: "Category"
+              },
+              {
+                fieldName: "addrln1",
+                label: "Address"
+              },
+              {
+                fieldName: "phones",
+                label: "Phone number"
+              },
+              {
+                fieldName: "link",
+                label: "Link"
+              }
+            ]
+          }]
+        }
+      });
+
+      map.add(featureLayer);
+
+      const legend = new Legend({
+        view: view
+      });
+
+      view.ui.add(legend, "bottom-left");
+
+      // Create graphic for distance buffer
+      var bufferGraphic = new Graphic({
+        symbol: {
+          type: "simple-fill", // autocasts as new SimpleFillSymbol()
+          color: [173, 216, 230, 0.2],
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: [255, 255, 255],
+            width: 1
+          }
+        }
+      });
+
+      //create graphic for mouse point click
+      var pointGraphic = new Graphic({
+        symbol: {
+          type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+          color: [0, 0, 139],
+          outline: {
+            color: [255, 255, 255],
+            width: 1.5
+          }
+        }
+      });
+
+      view.whenLayerView(featureLayer).then(function (lv) {
+        layerView = lv;
+        view.on("click", function (event) {
+          view.graphics.removeAll();
+          queryFeatures(event);
+        });
+      });
+
+
+      function queryFeatures(screenPoint) {
+        const point = view.toMap(screenPoint);
+        layerView.queryFeatures({
+            geometry: point,
+            distance: 0.5,
+            units: "miles",
+            spatialRelationship: "intersects",
+            returnGeometry: false,
+            returnQueryGeometry: true,
+            // outFields: ["*"],
+            where: "cat2 = 'UPS Locations' OR cat2 = 'USPS Mail Collection Boxes' OR cat2 = 'DHL Locations' OR cat2 = 'Federal Express Locations'"
+          })
+          .then(function (featureSet) {
+            // set graphic location to mouse pointer and add to mapview
+            pointGraphic.geometry = point;
+            view.graphics.add(pointGraphic);
+            // open popup of query result
+            view.popup.open({
+              location: point,
+              features: featureSet.features,
+              featureMenuOpen: true
+            });
+            if (featureSet.queryGeometry) {
+              bufferGraphic.geometry = featureSet.queryGeometry;
+              view.graphics.add(bufferGraphic);
+            }
+          });
+      }
+    });
+  </script>
+  <script type="text/plain" id="category">
+    if($feature.cat2 == "UPS Locations" || $feature.cat2 == "USPS Mail Collection Boxes" || $feature.cat2 == "DHL Locations" || $feature.cat2 == "Federal Express Locations"){
+        return "post-office"
+      }
+      else if($feature.cat2=="Banking and Finance"){
+        return "atm"
+      }
+      else if($feature.cat2 == "Churches"){
+        return "place-of-worship"
+      }
+      else if($feature.cat2 == "Parks and Gardens"){
+        return "park"
+      }
+      else if($feature.cat1 == "Education"){
+        return "school"
+      }
+      else if($feature.cat2 == "Mental Health Centers" ||$feature.cat2 == "Medicare and Medicaid Offices"|| $feature.cat2 == "Mental Health Counseling" || $feature.cat2== "Dental Care" || $feature.cat2 == "Health Clinics" || $feature.cat2== "Health Centers" || $feature.cat2 == "Health Education and Counseling" || $feature.cat2== "Health Screening and Testing" || $feature.cat2== "Hospitals and Medical Centers"){
+        return "hospital"
+      }
+      else if($feature.cat2 == "Fire Stations"){
+        return "fire-station"
+      }
+      else if($feature.cat2 == "Recreation Centers" || $feature.cat2 == "Recreation Programs" || $feature.cat2 == "Park and Ride Locations"){
+        return "playground"
+      }
+      else if($feature.cat2 == "Shopping Centers" || $feature.cat2=="Thrift Shops"){
+        return "shopping-center"
+      }
+      else if($feature.cat2 == "Campgrounds"){
+        return "campground"
+      }
+      else if($feature.cat2 == "Golf Courses"){
+        return "golf-course"
+      }
+      else if($feature.cat2 == "Libraries"){
+        return "library"
+      }
+      else if($feature.cat2 == "City Halls"|| $feature.cat2 == "Government Offices" || $feature.cat2 =="County Offices" || $feature.cat2 =="Probation Offices" || $feature.cat2 =="Social Security Administration"){
+        return "city-hall"
+      }
+      else if($feature.cat2 == "Beaches and Marinas"){
+        return "beach"
+      }
+      else if($feature.cat2 == "Sheriff and Police Stations"){
+        return "police-station"
+      }
+      else if($feature.cat2 == "Metro Stations"){
+        return "subway-station"
+      }
+      else if($feature.cat2 == "Metrolink Stations" || $feature.cat2 == "Amtrak Stations"){
+        return "train-station"
+      }
+      else if($feature.cat2 == "Cemeteries"){
+        return "cemetery"
+      }
+      else if($feature.cat2 == "Trails"){
+        return "trail"
+      }
+      else if($feature.cat2 == "Microwave Towers" || $feature.cat2 =="Cellular Towers"){
+        return "radio-tower"
+      }
+      else if($feature.cat2 == "Museums and Aquariums"){
+        return "museum"
+      }
+      else if($feature.cat2 == "Airport"){
+        return "airport"
+      }
+      else if($feature.cat2 == "Cultural and Performing Arts Centers"){
+        return "live-music-venue"
+      }
+      else if($feature.cat2 == "Sports Venues"){
+        return "sports-complex"
+      }
+      else if($feature.cat2 == "Ferries"){
+        return "ferry"
+      }
+    </script>
+</head>
+
+<body>
+  <div id="viewDiv" class="esri-widget"></div>
+</body>
+
+</html>
