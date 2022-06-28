@@ -2,6 +2,11 @@
 
 Here you can access presentations and demos from the Esri User Conference.
 
+### UC 2021
+
+- ArcGIS API for JavaScript: Amazing Mapping Apps
+  - [Presentation](https://github.com/annelfitz/UC-presentations/raw/master/UC-2021/amazing-mapping-apps/slides.pdf)
+
 ### UC 2020
 
 - Getting Started with Web Developement and the ArcGIS API for JavaScript
