@@ -25,9 +25,9 @@
       "esri/layers/FeatureLayer",
       "esri/widgets/Legend",
       "esri/Graphic",
-      "esri/core/watchUtils",
+      "esri/core/reactiveUtils",
       "esri/core/promiseUtils"
-    ], function (Map, MapView, FeatureLayer, Legend, Graphic, watchUtils, promiseUtils) {
+    ], function (Map, MapView, FeatureLayer, Legend, Graphic, reactiveUtils, promiseUtils) {
       let layerView;
       const category = document.getElementById("category").text;
       const map = new Map({
@@ -196,7 +196,7 @@
 
       view.whenLayerView(featureLayer).then(function (lv) {
         layerView = lv;
-        watchUtils.whenFalseOnce(layerView, "updating", function (val) {
+        reactiveUtils.whenOnce(() => !layerView.updating).then(() => {
           view.on(["pointer-move", "pointer-down"], function (event) {
             queryFeatures(event).catch(function (err) {
               if (!promiseUtils.isAbortError(err)) {
