@@ -38,12 +38,12 @@
         center: [-88.63069, 43.17813],
         zoom: 7
       });
-      const lightBreeze = new CIMSymbol({
+      const windSym = new CIMSymbol({
         data: {
           type: "CIMSymbolReference",
           primitiveOverrides: [{
               type: "CIMPrimitiveOverride",
-              primitiveName: "myName2",
+              primitiveName: "windSpeed",
               propertyName: "PlayAnimation",
               valueExpressionInfo: {
                 type: "CIMExpressionInfo",
@@ -53,7 +53,7 @@
             },
             {
               type: "CIMPrimitiveOverride",
-              primitiveName: "myName2",
+              primitiveName: "windSpeed",
               propertyName: "Duration",
               valueExpressionInfo: {
                 type: "CIMExpressionInfo",
@@ -72,25 +72,16 @@
             "symbolLayers": [{
               "type": "CIMPictureMarker",
               "enable": true,
-              "anchorPointUnits": "Relative",
-              "dominantSizeAxis3D": "Z",
               "size": 50,
-            //   rotation: 180,
-              "billboardMode3D": "FaceNearPlane",
-              "invertBackfaceTexture": true,
-              "scaleX": 1,
-              "textureFilter": "Picture",
               url: "https://upload.wikimedia.org/wikipedia/commons/9/92/Orange_animated_right_arrow.gif",
               "animatedSymbolProperties": {
-                primitiveName: "myName2",
+                primitiveName: "windSpeed",
                 "type": "CIMAnimatedSymbolProperties",
                 "playAnimation": true,
                 "randomizeStartTime": true,
                 "repeatType": "Loop"
               }
             }],
-            "haloSize": 1,
-            "scaleX": 1,
             "angleAlignment": "Map"
           }
         }
@@ -101,8 +92,7 @@
         },
         renderer: {
           type: "simple",
-          symbol: lightBreeze, // will be assigned sym1
-          //   ]
+          symbol: windSym,
           visualVariables: [{
               type: "rotation",
               valueExpression: "$feature.WIND_DIRECT + 90",
