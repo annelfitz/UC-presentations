@@ -5,7 +5,7 @@
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
   <title>CIM Weather Stations - Animation primitive override</title>
 
-  <link rel="stylesheet" href="https://js.arcgis.com/4.24/esri/themes/light/main.css" />
+  <link rel="stylesheet" href="https://js.arcgis.com/4.24/esri/themes/dark/main.css" />
   <script src="https://js.arcgis.com/4.24"></script>
 
   <style>
@@ -20,13 +20,13 @@
   </style>
 
   <script>
-    require(["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/symbols/CIMSymbol"], function(
+    require(["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/symbols/CIMSymbol", "esri/widgets/Legend"], function(
       Map,
       MapView,
       FeatureLayer,
-      CIMSymbol
+      CIMSymbol,
+      Legend
     ) {
-      // useDefaults(arguments)
       const referenceScale = 9244650;
       const map = new Map({
         basemap: "dark-gray-vector",
@@ -165,6 +165,8 @@
         minScale: 0,
       });
       map.add(featureLayer);
+
+      view.ui.add(new Legend({view}), "bottom-left")
     });
   </script>
 </head>
