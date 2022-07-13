@@ -9,7 +9,12 @@
 ### Description
 This session will discuss and demonstrate advanced visualization and analytical techniques that are performed client-side. Client-side refers to computations that are performed in the browser without needing to communicate with a server and as such are often very performant. The presenters will discuss vector filtering, highlighting and analysis such as geometric operations and coordinate projection. We'll also demonstrate how you can leverage multi-layer vector symbols to create dynamic data-driven visualizations. These techniques are essential for building interactive and engaging apps.
 
+[View the slides](https://annelfitz.github.io/UC-presentations/UC-2022/Advanced-topics/JSAPIAdvancedTopics.pdf)
+
 ### Demos
+
+**Binning demos**
+- https://github.com/ekenes/binning-experiments/
 
 **CIMSymbol demos**
 - [World Happiness - Primitive overrides](https://annelfitz.github.io/UC-presentations/UC-2022/Advanced-topics/Demos/cim-world-happiness.html)
