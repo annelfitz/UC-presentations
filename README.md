@@ -2,6 +2,12 @@
 
 Here you can access presentations and demos from the Esri User Conference.
 
+### UC 2022
+
+- ArcGIS API for JavaScript: Advanced Topics
+  - [Presentation](https://annelfitz.github.io/UC-presentations/UC-2022/Advanced-topics/JSAPIAdvancedTopics.pdf)
+  - [Demos](https://annelfitz.github.io/UC-presentations/UC-2022/Advanced-topics/)
+
 ### UC 2021
 
 - ArcGIS API for JavaScript: Amazing Mapping Apps
