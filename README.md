@@ -2,6 +2,16 @@
 
 Here you can access presentations and demos from the Esri User Conference.
 
+### UC 2023
+
+- ArcGIS Maps SDK for JavaScript: Using Arcade with Your Apps
+  - [Presentation](https://annelfitz.github.io/UC-presentations/UC-2023/arcade/using-arcade-with-your-apps.pdf)
+  - [Demos](https://github.com/annelfitz/UC-presentations/tree/master/UC-2023/arcade)
+
+- ArcGIS Maps SDK for JavaScript: Data Visualization
+  - [Presentation](https://annelfitz.github.io/UC-presentations/UC-2023/data-visualization/ArcGIS-Maps-SDK-for-JavaScript_Data-Visualization.pdf)
+  - [Demos](https://github.com/annelfitz/UC-presentations/tree/master/UC-2023/data-visualization)
+
 ### UC 2022
 
 - ArcGIS API for JavaScript: Advanced Topics
