@@ -19,6 +19,14 @@
       height: 100%;
       width: 100%;
     }
+
+    #titleDiv {
+      /* top: 15px;
+      left: 60px; */
+      padding: 10px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      /* color: #6e6e6e; */
+    }
   </style>
 
   <script>
@@ -30,131 +38,135 @@
       "esri/widgets/Legend",
       "esri/widgets/Expand",
       "esri/widgets/Bookmarks",
-      "esri/widgets/Search"
-    ], (WebMap, MapView, FeatureLayer, CIMSymbol, Legend, Expand, Bookmarks, Search) => {
+      "esri/widgets/Search",
+      "esri/rest/support/StatisticDefinition",
+      "esri/rest/support/TopFeaturesQuery",
+      "esri/rest/support/TopFilter"
+    ], (WebMap, MapView, FeatureLayer, CIMSymbol, Legend, Expand, Bookmarks, Search, StatisticDefinition, TopFeaturesQuery,
+      TopFilter) => {
       function createCIMSymbol(r, g, b) {
         return new CIMSymbol({
           data: {
             type: "CIMSymbolReference",
             primitiveOverrides: [{
-                type: "CIMPrimitiveOverride",
-                primitiveName: "animationOverride",
-                propertyName: "PlayAnimation",
-                valueExpressionInfo: {
-                  type: "CIMExpressionInfo",
-                  expression: `IIF($feature.OZONEPM_AQI_SORT >= 151, true, false)`
-                }
-              },
-              {
-                type: "CIMPrimitiveOverride",
-                primitiveName: "animationOverride",
-                propertyName: "Duration",
-                valueExpressionInfo: {
-                  type: "CIMExpressionInfo",
-                  expression: `When(
+              type: "CIMPrimitiveOverride",
+              primitiveName: "animationOverride",
+              propertyName: "PlayAnimation",
+              valueExpressionInfo: {
+                type: "CIMExpressionInfo",
+                expression: `IIF($feature.OZONEPM_AQI_SORT >= 151, true, false)`
+              }
+            },
+            {
+              type: "CIMPrimitiveOverride",
+              primitiveName: "animationOverride",
+              propertyName: "Duration",
+              valueExpressionInfo: {
+                type: "CIMExpressionInfo",
+                expression: `When(
                       $feature.OZONEPM_AQI_SORT >= 151 && $feature.OZONEPM_AQI_SORT < 200, 1,
                       $feature.OZONEPM_AQI_SORT >= 201 && $feature.OZONEPM_AQI_SORT < 300, 0.5,
                       0.35
                     )`
-                }
               }
+            }
             ],
             symbol: {
               type: "CIMPointSymbol",
               symbolLayers: [{
-                  type: "CIMPictureMarker",
-                  enable: true,
-                  size: 25,
-                  scaleX: 1,
-                  tintColor: [r, g, b, 255],
-                  url: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Cercle_white_blink.gif",
-                  animatedSymbolProperties: {
-                    primitiveName: "animationOverride",
-                    playAnimation: true,
-                    duration: 0.75,
-                    repeatType: "Loop"
-                  }
-                },
-                {
-                  type: "CIMVectorMarker",
-                  enable: true,
-                  anchorPoint: {
-                    x: 0,
-                    y: 0
-                  },
-                  anchorPointUnits: "Relative",
-                  dominantSizeAxis3D: "Y",
-                  size: 22,
-                  billboardMode3D: "FaceNearPlane",
-                  frame: {
-                    xmin: 0,
-                    ymin: 0,
-                    xmax: 17,
-                    ymax: 17
-                  },
-                  markerGraphics: [{
-                    type: "CIMMarkerGraphic",
-                    geometry: {
-                      rings: [
-                        [
-                          [8.5, 0],
-                          [7.02, 0.13],
-                          [5.59, 0.51],
-                          [4.25, 1.14],
-                          [3.04, 1.99],
-                          [1.99, 3.04],
-                          [1.14, 4.25],
-                          [0.51, 5.59],
-                          [0.13, 7.02],
-                          [0, 8.5],
-                          [0.13, 9.98],
-                          [0.51, 11.41],
-                          [1.14, 12.75],
-                          [1.99, 13.96],
-                          [3.04, 15.01],
-                          [4.25, 15.86],
-                          [5.59, 16.49],
-                          [7.02, 16.87],
-                          [8.5, 17],
-                          [9.98, 16.87],
-                          [11.41, 16.49],
-                          [12.75, 15.86],
-                          [13.96, 15.01],
-                          [15.01, 13.96],
-                          [15.86, 12.75],
-                          [16.49, 11.41],
-                          [16.87, 9.98],
-                          [17, 8.5],
-                          [16.87, 7.02],
-                          [16.49, 5.59],
-                          [15.86, 4.25],
-                          [15.01, 3.04],
-                          [13.96, 1.99],
-                          [12.75, 1.14],
-                          [11.41, 0.51],
-                          [9.98, 0.13],
-                          [8.5, 0]
-                        ]
-                      ]
-                    },
-                    symbol: {
-                      type: "CIMPolygonSymbol",
-                      symbolLayers: [{
-                        type: "CIMSolidFill",
-                        enable: true,
-                        color: [r, g, b, 125]
-                      }]
-                    }
-                  }],
-                  scaleSymbolsProportionally: true,
-                  respectFrame: true
+                type: "CIMPictureMarker",
+                enable: true,
+                size: 25,
+                scaleX: 1,
+                tintColor: [r, g, b, 255],
+                url: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Cercle_white_blink.gif",
+                animatedSymbolProperties: {
+                  primitiveName: "animationOverride",
+                  playAnimation: true,
+                  duration: 0.75,
+                  repeatType: "Loop"
                 }
+              },
+              {
+                type: "CIMVectorMarker",
+                enable: true,
+                anchorPoint: {
+                  x: 0,
+                  y: 0
+                },
+                anchorPointUnits: "Relative",
+                dominantSizeAxis3D: "Y",
+                size: 22,
+                billboardMode3D: "FaceNearPlane",
+                frame: {
+                  xmin: 0,
+                  ymin: 0,
+                  xmax: 17,
+                  ymax: 17
+                },
+                markerGraphics: [{
+                  type: "CIMMarkerGraphic",
+                  geometry: {
+                    rings: [
+                      [
+                        [8.5, 0],
+                        [7.02, 0.13],
+                        [5.59, 0.51],
+                        [4.25, 1.14],
+                        [3.04, 1.99],
+                        [1.99, 3.04],
+                        [1.14, 4.25],
+                        [0.51, 5.59],
+                        [0.13, 7.02],
+                        [0, 8.5],
+                        [0.13, 9.98],
+                        [0.51, 11.41],
+                        [1.14, 12.75],
+                        [1.99, 13.96],
+                        [3.04, 15.01],
+                        [4.25, 15.86],
+                        [5.59, 16.49],
+                        [7.02, 16.87],
+                        [8.5, 17],
+                        [9.98, 16.87],
+                        [11.41, 16.49],
+                        [12.75, 15.86],
+                        [13.96, 15.01],
+                        [15.01, 13.96],
+                        [15.86, 12.75],
+                        [16.49, 11.41],
+                        [16.87, 9.98],
+                        [17, 8.5],
+                        [16.87, 7.02],
+                        [16.49, 5.59],
+                        [15.86, 4.25],
+                        [15.01, 3.04],
+                        [13.96, 1.99],
+                        [12.75, 1.14],
+                        [11.41, 0.51],
+                        [9.98, 0.13],
+                        [8.5, 0]
+                      ]
+                    ]
+                  },
+                  symbol: {
+                    type: "CIMPolygonSymbol",
+                    symbolLayers: [{
+                      type: "CIMSolidFill",
+                      enable: true,
+                      color: [r, g, b, 125]
+                    }]
+                  }
+                }],
+                scaleSymbolsProportionally: true,
+                respectFrame: true
+              }
               ]
             }
           }
         });
       }
-      
+
       const aqiLayer = new FeatureLayer({
         portalItem: {
           id: "2d718d2733a74d1689d72b922c0ac4f4"
@@ -189,41 +201,41 @@
             title: "Ozone & PM AQI"
           },
           classBreakInfos: [{
-              minValue: 301,
-              maxValue: 5000,
-              symbol: createCIMSymbol(126, 0, 35),
-              label: "Hazardous"
-            },
-            {
-              minValue: 201,
-              maxValue: 300,
-              symbol: createCIMSymbol(143, 63, 151),
-              label: "Very Unhealthy"
-            },
-            {
-              minValue: 151,
-              maxValue: 200,
-              symbol: createCIMSymbol(255, 0, 0),
-              label: "Unhealthy"
-            },
-            {
-              minValue: 101,
-              maxValue: 150,
-              symbol: createCIMSymbol(255, 126, 0),
-              label: "Unhealthy for Sensitive Groups"
-            },
-            {
-              minValue: 51,
-              maxValue: 100,
-              symbol: createCIMSymbol(255, 255, 0),
-              label: "Moderate"
-            },
-            {
-              minValue: 0,
-              maxValue: 50,
-              symbol: createCIMSymbol(0, 228, 0),
-              label: "Good"
-            }
+            minValue: 301,
+            maxValue: 5000,
+            symbol: createCIMSymbol(126, 0, 35),
+            label: "Hazardous"
+          },
+          {
+            minValue: 201,
+            maxValue: 300,
+            symbol: createCIMSymbol(143, 63, 151),
+            label: "Very Unhealthy"
+          },
+          {
+            minValue: 151,
+            maxValue: 200,
+            symbol: createCIMSymbol(255, 0, 0),
+            label: "Unhealthy"
+          },
+          {
+            minValue: 101,
+            maxValue: 150,
+            symbol: createCIMSymbol(255, 126, 0),
+            label: "Unhealthy for Sensitive Groups"
+          },
+          {
+            minValue: 51,
+            maxValue: 100,
+            symbol: createCIMSymbol(255, 255, 0),
+            label: "Moderate"
+          },
+          {
+            minValue: 0,
+            maxValue: 50,
+            symbol: createCIMSymbol(0, 228, 0),
+            label: "Good"
+          }
           ],
           defaultSymbol: createCIMSymbol(255, 255, 255)
         }
@@ -250,15 +262,17 @@
           minScale: 4500000
         }
       });
+
       view.ui.add(new Expand({
         view,
         group: "left",
         content: new Legend({
           view: view
         }),
-        }),
+      }),
         "top-left"
       );
+
       view.ui.add(new Expand({
         view,
         group: "left",
@@ -269,13 +283,43 @@
           }
         })
       }), "top-left");
-      view.ui.add(new Search({view}), "top-right")
+
+      view.ui.add(new Expand({
+        view,
+        group: "left",
+        content: new Search({ view })
+      }), "top-left");
+
+      view.ui.add("titleDiv", "top-right");
+
+      view.whenLayerView(aqiLayer).then((aqiLayerView) => {
+        document.getElementById("date").innerHTML = aqiLayer.editingInfo.lastEditDate.toLocaleString();
+        const worstBtn = document.getElementById("worstAQI");
+        worstBtn.addEventListener("click", () => {
+          const query = {
+            where: "1=1",
+            orderByFields: ["OZONEPM_AQI_SORT DESC"],
+            outFields: ["OZONEPM_AQI_SORT"],
+            num: 1,
+            returnGeometry: true
+          };
+          aqiLayerView.queryFeatures(query).then((results) => {
+            const worst = results.features[0];
+            view.goTo(worst)
+          })
+        })
+      });
     });
   </script>
 </head>
 
 <body>
   <div id="viewDiv"></div>
+  <div id="titleDiv" class="esri-widget">
+    <h2>Air Quality Index</h2>
+    <p>Last updated: <span id="date"></span></p>
+    <button id="worstAQI" class="esri-widget esri-button">Find worst AQI</button>
+  </div>
 </body>
 
 </html>
