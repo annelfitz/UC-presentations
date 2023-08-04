@@ -38,12 +38,12 @@
       "esri/widgets/Legend",
       "esri/widgets/Expand",
       "esri/widgets/Bookmarks",
-      "esri/widgets/Search",
-      "esri/rest/support/StatisticDefinition",
-      "esri/rest/support/TopFeaturesQuery",
-      "esri/rest/support/TopFilter"
-    ], (WebMap, MapView, FeatureLayer, CIMSymbol, Legend, Expand, Bookmarks, Search, StatisticDefinition, TopFeaturesQuery,
-      TopFilter) => {
+      "esri/widgets/Search"
+    ], (WebMap, MapView, FeatureLayer, CIMSymbol, Legend, Expand, Bookmarks, Search) => {
+      // check for reduced motion
+      const isReduced = window.matchMedia(`(prefers-reduced-motion: reduce)`) === true || window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
+
+      // create CIMSymbol with provided rgb color
       function createCIMSymbol(r, g, b) {
         return new CIMSymbol({
           data: {
@@ -54,7 +54,8 @@
               propertyName: "PlayAnimation",
               valueExpressionInfo: {
                 type: "CIMExpressionInfo",
-                expression: `IIF($feature.OZONEPM_AQI_SORT >= 151, true, false)`
+                // only play the animation if AQI is greater than 151 and user does not have reduced motion
+                expression: `IIF($feature.OZONEPM_AQI_SORT >= 151 && !${isReduced}, true, false)`
               }
             },
             {
@@ -63,6 +64,7 @@
               propertyName: "Duration",
               valueExpressionInfo: {
                 type: "CIMExpressionInfo",
+                // decrease the duration of the animation when the AQI is higher
                 expression: `When(
                       $feature.OZONEPM_AQI_SORT >= 151 && $feature.OZONEPM_AQI_SORT < 200, 1,
                       $feature.OZONEPM_AQI_SORT >= 201 && $feature.OZONEPM_AQI_SORT < 300, 0.5,
@@ -240,19 +242,22 @@
           defaultSymbol: createCIMSymbol(255, 255, 255)
         }
       });
+      // add context from a live feed of smoke from NOAA
       const smokeLayer = new FeatureLayer({
         portalItem: {
           id: "670753899cdb49509b0225496a5b5808"
         },
         legendEnabled: false
-      })
+      });
+
       const map = new WebMap({
         portalItem: {
           id: "81bfc8a612d3426583fb9c93381dae84"
         },
         basemap: "gray-vector",
-        layers: [smokeLayer, aqiLayer]
+        layers: [smokeLayer, aqiLayer] // add layers to the map
       });
+
       const view = new MapView({
         container: "viewDiv",
         map: map,
@@ -263,15 +268,11 @@
         }
       });
 
-      view.ui.add(new Expand({
-        view,
-        group: "left",
-        content: new Legend({
-          view: view
-        }),
-      }),
-        "top-left"
-      );
+      const legend = new Legend({
+          view: view,
+          container: "legendDiv"
+      });
+      view.ui.add("titleDiv", "top-right");
 
       view.ui.add(new Expand({
         view,
@@ -279,6 +280,7 @@
         content: new Bookmarks({
           view,
           visibleElements: {
+            // hide the bookmark thumbnails
             thumbnail: false
           }
         })
@@ -290,12 +292,11 @@
         content: new Search({ view })
       }), "top-left");
 
-      view.ui.add("titleDiv", "top-right");
-
       view.whenLayerView(aqiLayer).then((aqiLayerView) => {
         document.getElementById("date").innerHTML = aqiLayer.editingInfo.lastEditDate.toLocaleString();
         const worstBtn = document.getElementById("worstAQI");
         worstBtn.addEventListener("click", () => {
+          // query for the highest AQI and navigate the user to that feature
           const query = {
             where: "1=1",
             orderByFields: ["OZONEPM_AQI_SORT DESC"],
@@ -305,7 +306,7 @@
           };
           aqiLayerView.queryFeatures(query).then((results) => {
             const worst = results.features[0];
-            view.goTo(worst)
+            view.goTo(worst);
           })
         })
       });
@@ -316,9 +317,9 @@
 <body>
   <div id="viewDiv"></div>
   <div id="titleDiv" class="esri-widget">
-    <h2>Air Quality Index</h2>
+    <div id="legendDiv"></div>
     <p>Last updated: <span id="date"></span></p>
-    <button id="worstAQI" class="esri-widget esri-button">Find worst AQI</button>
+    <button id="worstAQI" class="esri-widget esri-button">Find the worst AQI</button>
   </div>
 </body>
 
