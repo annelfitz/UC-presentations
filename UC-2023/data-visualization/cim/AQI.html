@@ -52,7 +52,7 @@
               valueExpressionInfo: {
                 type: "CIMExpressionInfo",
                 // only play the animation if AQI is greater than 151 and user does not have reduced motion
-                expression: `IIF($feature.OZONEPM_AQI_SORT >= 151 && !${isReduced}, true, false)`
+                expression: `$feature.OZONEPM_AQI_SORT >= 151 && !${isReduced}`
               }
             },
             {
