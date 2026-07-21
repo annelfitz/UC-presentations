@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>San Joaquin Crop Mapping</title>
+    <style>
+      html,
+      body,
+      arcgis-map {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      calcite-menu-item {
+        --calcite-color-foreground-1: var(--calcite-color-background);
+      }
+
+      calcite-panel {
+        border-top: 0;
+        height: 100%;
+      }
+
+      calcite-action-pad {
+        margin-inline-end: 0.5rem;
+      }
+
+      /* App-specific supporting styles below */
+
+      .grid-container {
+        height: 100%;
+        max-height: calc(100% - 64px);
+        margin: 2rem;
+        display: grid;
+        grid-auto-columns: 1fr;
+        grid-template-columns: 3fr minmax(20rem, 0.75fr);
+        gap: 2rem 2rem;
+        grid-template-areas: "map panel";
+      }
+
+      .grid-container calcite-panel {
+        box-shadow: var(--calcite-shadow-sm);
+        overflow: hidden;
+      }
+
+      @media screen and (max-width: 800px) {
+        .grid-container {
+          grid-template-columns: 1fr;
+          grid-template-areas: "map" "panel";
+        }
+
+        #map-panel {
+          height: 40vh;
+        }
+      }
+
+      .grid-map {
+        grid-area: map;
+      }
+
+      .grid-panel {
+        grid-area: panel;
+      }
+
+      calcite-shell {
+        background-color: var(--calcite-color-background);
+      }
+
+      calcite-label:last-of-type {
+        --calcite-label-margin-bottom: 0;
+      }
+    </style>
+    <script type="module" src="https://js.arcgis.com/5.1/"></script>
+  </head>
+
+  <body>
+    <calcite-shell class="custom-example-theme">
+      <div class="grid-container">
+        <calcite-panel
+          id="map-panel"
+          class="grid-map"
+          description="San Joaquin County CA, Crop Mapping"
+        >
+          <arcgis-map item-id="cefcaa0c5fcf41368d20ad4f8587e9b1"></arcgis-map>
+        </calcite-panel>
+        <calcite-panel class="grid-panel" id="panel">
+          <arcgis-editor reference-element="arcgis-map"></arcgis-editor>
+        </calcite-panel>
+      </div>
+    </calcite-shell>
+
+    <script type="module">
+      const [Graphic, Polygon] = await $arcgis.import([
+        "@arcgis/core/Graphic",
+        "@arcgis/core/geometry/Polygon",
+      ]);
+
+      const editor = document.querySelector("arcgis-editor");
+      const viewElement = document.querySelector("arcgis-map");
+
+      const _CROP_GRAPHIC = new Graphic({
+        attributes: {
+          COUNTY: "San Joaquin county",
+          ACRES: 316.33,
+          CROP_TYPE: 0,
+          CLASS: "Al-Ct",
+        },
+        geometry: new Polygon({
+          curveRings: [
+            [
+              [-13507292.4388, 4559006.1689],
+              [-13507321.9712, 4559942.9567],
+              [-13507242.4942, 4559963.8032],
+              [-13507231.6366, 4560041.9774],
+              [-13505386.7248, 4560013.7479],
+              {
+                c: [
+                  [-13505202.4147, 4559661.5265],
+                  [-13505401.1796666, 4559781.85045795],
+                ],
+              },
+              {
+                c: [
+                  [-13505104.7767, 4559583.2936],
+                  [-13505125.2904584, 4559644.6306561],
+                ],
+              },
+              {
+                c: [
+                  [-13505330.6998, 4559266.3154],
+                  [-13505172.3496478, 4559431.81518342],
+                ],
+              },
+              [-13505444.0526, 4558987.9281],
+              [-13506353.5742028, 4558996.90371433],
+              [-13507292.4388, 4559006.1689],
+            ],
+          ],
+          spatialReference: { wkid: 102100 },
+        }),
+      });
+
+      await viewElement.viewOnReady();
+      await editor.componentOnReady();
+
+      configureSnapping(viewElement.map.layers);
+
+      const featureLayer = viewElement.map.layers.find(
+        (layer) => layer.type === "feature",
+      );
+      querySingleFeature(featureLayer, "CLASS='Al-Ct'");
+
+      // // query and add feature
+      async function querySingleFeature(layer, whereClause) {
+        const query = layer.createQuery();
+        query.where = whereClause;
+
+        const featureCount = await layer.queryFeatureCount(query);
+        if (featureCount > 0) {
+          // do nothing
+        } else {
+          addFeature(layer, _CROP_GRAPHIC);
+        }
+      }
+
+      function addFeature(layer, graphic) {
+        layer
+          .applyEdits(
+            {
+              addFeatures: [graphic],
+            },
+            {
+              editsRespectTrueCurves: true,
+            },
+          )
+          .then((results) => {
+            console.log("edit results: ", results);
+          })
+          .catch((err) => {
+            console.log("failed with error: ", err);
+          });
+      }
+
+      // configure snapping
+      function configureSnapping(layers) {
+        editor.snappingOptions = {
+          enabled: true,
+          selfEnabled: false,
+        };
+
+        layers.forEach((layer) => {
+          editor.snappingOptions.featureSources.push({
+            layer,
+            enabled: true,
+          });
+        });
+      }
+    </script>
+  </body>
+</html>

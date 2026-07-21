@@ -1,0 +1,76 @@
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>2026 Esri User Conference</title>
+
+  <!-- ArcGIS Maps SDK for JavaScript imports -->
+  <script type="module" src="https://js.arcgis.com/5.1/"></script>
+
+  <!-- Demo imports -->
+  <script type="module" src="./app.js" defer></script>
+  <script type="module" src="./main.js" defer></script>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <calcite-shell content-behind>
+    <calcite-navigation slot="header" id="nav">
+      <calcite-navigation-logo href="#" icon="image-layer" alt="Application logo" slot="logo"
+        heading="Global Power Plants" description="Esri Developer & Technology Summit"></calcite-navigation-logo>
+      <calcite-action-bar layout="horizontal" expand-disabled slot="content-end">
+        <calcite-action id="toggle-mode" text="Toggle mode" icon="brightness"></calcite-action>
+        <calcite-action id="toggle-modal" text="About this application" icon="information"></calcite-action>
+      </calcite-action-bar>
+
+      <calcite-tooltip placement="bottom" reference-element="toggle-mode" slot="content-end">Toggle
+        mode</calcite-tooltip>
+      <calcite-tooltip placement="bottom" reference-element="toggle-modal" close-on-click slot="content-end">About this
+        application</calcite-tooltip>
+    </calcite-navigation>
+
+    <calcite-shell-panel slot="panel-end" display-mode="float">
+      <calcite-panel heading="Maps SDK for JavaScript" description="Showcased product">
+        <calcite-block collapsible expanded heading="Layer filter & effects"
+          description="Select a fuel type to filter the data in the map">
+          <calcite-icon scale="s" slot="icon" icon="effects"></calcite-icon>
+          <calcite-chip-group id="fuel-type-select" label="filter" selection-mode="single">
+            <calcite-chip value="Oil" label="Oil">Oil</calcite-chip>
+            <calcite-chip value="Hydro" label="Hydro">Hydro</calcite-chip>
+            <calcite-chip value="Wind" label="Wind">Wind</calcite-chip>
+            <calcite-chip value="Gas" label="Gas">Gas</calcite-chip>
+            <calcite-chip value="Coal" label="Coal">Coal</calcite-chip>
+            <calcite-chip value="Solar" label="Solar">Solar</calcite-chip>
+            <calcite-chip value="Biomass" label="Biomass">Biomass</calcite-chip>
+            <calcite-chip value="Waste" label="Waste">Waste</calcite-chip>
+            <calcite-chip value="Nuclear" label="Nuclear">Nuclear</calcite-chip>
+            <calcite-chip value="Geothermal" label="Geothermal">Geothermal</calcite-chip>
+          </calcite-chip-group>
+        </calcite-block>
+      </calcite-panel>
+    </calcite-shell-panel>
+
+    <arcgis-map item-id="b056b48865154aecaf45944b9c25a494" popup-component-enabled>
+      <arcgis-expand slot="bottom-left">
+        <arcgis-legend></arcgis-legend>
+      </arcgis-expand>
+    </arcgis-map>
+  </calcite-shell>
+
+  <calcite-dialog modal id="modal" heading="About this application">
+    <div>
+      <calcite-notice open>
+        <span slot="title">This demonstration application is a companion resource to the "ArcGIS Maps SDK for
+          JavaScript: Fundamentals & Capabilities" session
+          at Esri User Conference.
+        </span>
+      </calcite-notice>
+      This example illustrates adding a client side feature effect to a layer in the map.
+      Learn more in the
+      <calcite-link target="_blank" href="https://developers.arcgis.com/javascript/latest/query-filter/#client-side-filtering"> documentation</calcite-link>.
+    </div>
+  </calcite-dialog>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>Editor - Multiple Choice Input</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+    </style>
+    <script type="module" src="https://js.arcgis.com/5.1/"></script>
+  </head>
+
+  <body>
+    <arcgis-map
+      basemap="streets-navigation-vector"
+      center="-70.89545, 42.52107"
+      zoom="15"
+    >
+      <arcgis-zoom slot="top-left"></arcgis-zoom>
+      <arcgis-editor slot="top-right"></arcgis-editor>
+    </arcgis-map>
+
+    <script type="module">
+      const [
+        FeatureLayer,
+        { FieldElement },
+        MultipleChoiceInput,
+        FormTemplate,
+      ] = await $arcgis.import([
+        "esri/layers/FeatureLayer",
+        "esri/form/elements",
+        "esri/form/elements/inputs/MultipleChoiceInput",
+        "esri/form/FormTemplate",
+      ]);
+
+      const viewElement = document.querySelector("arcgis-map");
+      await viewElement.viewOnReady();
+
+      // Configure MultipleChoiceInput
+      const elements = [
+        new FieldElement({
+          fieldName: "RequestType",
+          label: "Road incidents",
+          input: new MultipleChoiceInput({
+            choices: [
+              { label: "Pothole", value: "Pothole" },
+              { label: "Trash", value: "Trash" },
+              { label: "Stalled vehicle", value: "Stalled vehicle" },
+              { label: "Flooding", value: "Flooding" },
+              { label: "Fallen tree", value: "Fallen tree" },
+              { label: "Fire", value: "Fire" },
+            ],
+            minimumChoices: 1,
+            includeSelectAllChoices: true,
+            otherChoice: {
+              fieldName: "OtherRequestType",
+              hint: "Provide an additional incident",
+              label: "Other incident type",
+            },
+          }),
+          requiredExpression: "always-required",
+        }),
+        new FieldElement({
+          fieldName: "Status",
+          label: "Incident status",
+        }),
+        new FieldElement({
+          fieldName: "ReportedDate",
+          label: "Reported date",
+        }),
+        new FieldElement({
+          fieldName: "ResolvedDate",
+          label: "Resolved date",
+        }),
+      ];
+
+      const roadIncidentsLayer = new FeatureLayer({
+        portalItem: {
+          id: "d6f68e4453f14f30a9d9d3743032ac3b",
+        },
+        formTemplate: new FormTemplate({
+          elements: elements,
+          expressionInfos: [
+            {
+              // An expression that always returns true
+              expression: "true",
+              name: "always-required",
+              returnType: "boolean",
+            },
+          ],
+        }),
+      });
+
+      viewElement.map.add(roadIncidentsLayer);
+    </script>
+  </body>
+</html>
